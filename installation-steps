@@ -1,0 +1,15 @@
+kubectl create ns elk
+kubectl apply -f elasticsearch-pv.yml
+kubectl get pv
+kubectl get pvc --namespace=elk
+kubectl get StorageClass --namespace=metrics
+helm repo list
+helm repo update
+helm install elasticsearch elastic/elasticsearch --namespace elk -f values.yml
+kubectl get pods --namespace=elk -l app=elasticsearch-master -w
+kubectl describe pods elasticsearch-master-0 --namespace=elk
+kubectl get pods --namespace=elk -l app=elasticsearch-master
+kubectl describe pods elasticsearch-master-0 --namespace=elk
+kubectl get pvc --namespace=elk
+kubectl get pods --namespace=elk -l app=elasticsearch-master
+kubectl describe ingress elasticsearch-master --namespace=elk
